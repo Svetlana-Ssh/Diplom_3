@@ -13,19 +13,22 @@ import praktikum.pom.MainPage;
 import praktikum.pom.RegisterPage;
 import praktikum.user.User;
 import praktikum.user.UserClient;
+import praktikum.user.UserGenerator;
+
 import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
 public class TestBurgerConstructorAvailability extends BaseTest {
     private User user;
+    private final UserGenerator userGenerator = new UserGenerator();
     private final UserClient userClient = new UserClient();
     private String userAccessToken;
 
     @Before
     @DisplayName("Регистрация тестового аккаунта и переход в его личный кабинет.")
     public void accountRegistration() {
-        user = new User("ssh_reg@yandex.ru", "123qweASD", "ssh_reg");
+        user = userGenerator.random();
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.open();
         registerPage.register(user.getName(), user.getEmail(), user.getPassword());
